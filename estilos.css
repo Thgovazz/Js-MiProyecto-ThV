@@ -1,0 +1,242 @@
+*{   
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;  
+}
+img{
+    width: 10em;
+}
+li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+/*grid*/
+#hero{
+    grid-area: hero;
+}
+#containerTitleTienda{
+    grid-area: titleTienda;
+}
+#productosContainer{
+    grid-area: productos;
+}
+#carritoSection{
+    grid-area: carrito;
+}
+footer{
+    grid-area: footer;
+}
+#productosContainer{
+    display: grid;
+}
+
+body{
+    font-family: 'Raleway',sans-serif;
+    display: grid;
+    grid-template-areas: 
+    "header"
+    "hero"
+    "titleTienda"
+    "productos"
+    "carrito"
+    "footer"
+    ;
+    background-color: rgb(4 4 4/ 0.9);
+}
+/*estilos*/
+header{
+    grid-area: header;
+    background-color: rgb(0 0 0);
+}
+#navBar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#containerTitleIndex, #ulNavBar{
+    margin: 0.12em 0.22em;
+}
+.titleIndex{
+    color: rgb(245 245 245);
+    padding: 0.12em;
+    font-weight: 600;
+    border-bottom: 0.06em solid rgb(245 245 245/ 0.5);
+}
+#carritoIcon{
+    width: 25px;
+    height: 26px;
+}
+#hero{
+    height: 20em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+#heroHero{
+    width: 95%;
+    height: 18em;
+    display: flex;
+    justify-content: center;
+}
+.heroTitle{
+    padding: 0.06em;
+    font-size: 2.6em;
+    position: absolute;
+    z-index: 1;
+    top: 1.14em;
+    border-bottom: 0.04em solid rgb(0 0 0/ 0.6);
+    border-right: 0.04em solid rgb(0 0 0/ 0.6);
+}
+.heroText{
+    position: absolute;
+    z-index: 2;
+    font-size: 1em;
+    font-weight: 600;
+    top: 6.5em;
+}
+.heroText::before{
+    background-color: #db0a40;
+    border-radius: 2px;
+    content: "";
+    height: 12px;
+    left: -12px;
+    position: absolute;
+    top: 2px;
+    width: 4px;
+}
+.imgHero{
+    width: 100%;
+    height: 80%;
+}
+
+#containerTitleTienda{
+    text-align: center;
+}
+.titleTienda{
+    background-color: rgb(0 0 0);
+    color: rgb(245 245 245);
+    padding: 0.12em;
+}
+.containerBusquedaProduc{
+    margin: 0.30em;
+}
+#busquedaProduc{
+    background-color: rgb(255, 255, 255);
+    color: rgb(9, 9, 9);
+    font-weight: 300;
+    font-size: 1rem;
+    padding: .28em 0;
+    border: none;
+    outline: none;
+    border-radius: 0.5em;
+}
+#busquedaProducto:hover{
+    border: none;
+}
+.producto{
+    width: 19em;
+    height: 20em;
+    margin: 0.25em;
+    background-color: rgb(245 245 245);
+    border: 0.06em solid black;
+}
+#btnLupa{
+    width: 2em;
+    height: 2em;
+    background-color: rgb(0, 0, 0);
+}
+#lupaImg{
+    width: max-content;
+}
+#bodyCarrito{
+    background-color: blueviolet;
+}
+#carritoSection{
+    background-color: rgb(245, 245, 245);
+    margin: 0.12em;
+    border: 0.24em solid rgb(0, 0, 0);
+    display: grid;
+}
+.itemCarrito{
+    display: flex;
+    justify-content: space-between;
+    margin: 0.12em;
+}
+
+@media screen and (min-width: 1200px){
+    #hero{
+        height: 38em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+    #heroHero{
+        width: 95%;
+        height: 35em;
+        display: flex;
+        justify-content: center;
+    }
+    .heroTitle{
+        padding: 0.06em;
+        font-size: 3em;
+        position: absolute;
+        z-index: 1;
+        top: 3em;
+        border-bottom: 0.04em solid rgb(0 0 0/ 0.6);
+        border-right: 0.04em solid rgb(0 0 0/ 0.6);
+    }
+    .heroText{
+        position: absolute;
+        z-index: 2;
+        font-size: 1em;
+        font-weight: 600;
+        top: 15em;
+    }
+    .heroText::before{
+        background-color: #db0a40;
+        border-radius: 2px;
+        content: "";
+        height: 12px;
+        left: -12px;
+        position: absolute;
+        top: 2px;
+        width: 4px;
+    }
+    .imgHero{
+        width: 100%;
+        height: 100%;
+    }
+    #productosContainer{ 
+        display: grid;
+        justify-items: center;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+    }
+    .producto{
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+    .imgProducTien{
+        margin: 0.5em;
+        width: 10em;
+        height: 11em;
+    }
+    .productoH2{
+        font-size: 1em;
+        text-align: center;
+        font-family: 'Roboto', sans-serif;
+    }
+    .productoP{
+        margin: 0 3.5em;
+    }
+    .boton{
+        margin: 0 3.5em;
+    }
+}

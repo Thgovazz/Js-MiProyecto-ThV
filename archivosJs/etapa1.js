@@ -1,155 +1,141 @@
-let nombre = prompt("Ingrese su nombre")
-function saludo(dato) {
-    console.log(`¡Hola, ${dato}!.Bienvenido/a a GeT in!.Tienda de ropa online`)
-}
-saludo(nombre)
-
-const listaProd = [
-    {id:1, nombre: "Buzo dino drew", talle:"M", precio: 20000, marca:"Drew", categoria:"Buzo",},
-    {id:2, nombre: "Buzo nike air", talle:"XXL", precio: 16000, marca:"Nike", categoria:"Buzo",},
-    {id:3, nombre: "Buzo adidas liso", talle:"S", precio: 15000, marca:"Adidas", categoria:"Buzo",},
-    {id:4, nombre: "Remera adidas blod", talle:"L", precio: 10000, marca:"Adidas", categoria:"Remera",},
-    {id:5, nombre: "Remera drew house", talle:"XL", precio: 15000, marca: "Drew", categoria:"Remera",},
-    {id:6, nombre: "Remera jordan 23", talle:"M", precio: 11000, marca:"Nike", categoria:"Remera",}
+//lista de productos
+const productos = [
+    {id:1, nombre: "SHREDDER SURF", precio:120000, stock:3, categoria:"tabla de surf", imgUrl:"./multimedia/tabla1.png"}, 
+    {id:2, nombre: "E2 SURF B4BC", precio:115000, stock:3, categoria:"tabla de surf", imgUrl:"./multimedia/tabla2.png"}, 
+    {id:3, nombre: "EOS ENTERO", precio:69000, stock:3, categoria:"traje de surf", imgUrl:"./multimedia/traje1.jpg"}, 
+    {id:4, nombre: "PRIME ENTERO", precio:97000, stock:3, categoria:"traje de surf", imgUrl:"./multimedia/traje2.jpg"}, 
+    {id:5, nombre: "FUNDA SURF REFLEX", precio:29000, stock:3, categoria:"accesorios", imgUrl:"./multimedia/accesorio1.jpg"}, 
+    {id:6, nombre: "QUILLA FLEXIBLE", precio:40000, stock:3, categoria:"accesorios", imgUrl:"./multimedia/accesorio2.jpg"}
 ]
 
-const carrito = []
+let productoContainer = document.getElementById("productosContainer")
 
-let resultado
-function opcion(){
-    resultado = Number(prompt("Elija una opcion"))
+renderizarProductos()
+
+let busqueda = document.getElementById("busquedaProduc")
+//busqueda
+busqueda.oninput = () => {
+  let productosFiltrados = productos.filter(producto => producto.nombre.includes(busqueda.value.toUpperCase()))
+  renderizarProductos(productosFiltrados)
+  for (const boton of botones) {
+    boton.onclick = (e) => {
+      let productoBuscado = productos.find(producto => producto.id == e.target.id)
+  
+      let posicionProductoEnCarrito = carritoGuardado.findIndex(producto => producto.id == productoBuscado.id)
+  
+      if (posicionProductoEnCarrito != -1) {
+        carritoGuardado[posicionProductoEnCarrito].unidades++ 
+        carritoGuardado[posicionProductoEnCarrito].subtotal = carritoGuardado[posicionProductoEnCarrito].precioUnidad * carritoGuardado[posicionProductoEnCarrito].unidades
+      } else {
+        carritoGuardado.push({ id: productoBuscado.id, nombre: productoBuscado.nombre, precioUnidad: productoBuscado.precio, unidades: 1, subtotal: productoBuscado.precio })
+      }
+  
+      localStorage.setItem('carrito', JSON.stringify(carritoGuardado))
+      renderizarCarrito()
+    }
+  }
+}
+//produc a la vista
+function renderizarProductos(productoFiltrado){
+  let productosARenderizar = productos
+  if(productoFiltrado){
+    productosARenderizar = productoFiltrado
+  }
+  productoContainer.innerHTML = ''
+  for (const producto of productosARenderizar) {
+    let tarjetaProducto = document.createElement('article')
+    tarjetaProducto.className = 'producto'
+    tarjetaProducto.innerHTML = `
+      <div><img src=${producto.imgUrl} class="imgProducTien"></div>
+      <div><h2 class="productoH2">${producto.nombre}</h2></div>
+      <div><p class="productoP">$${producto.precio}</p></div>
+      <div><button class="boton" id=${producto.id}>Agregar al carrito</button></div>
+    `
+    productoContainer.append(tarjetaProducto)
+  }
 }
 
-function remeras() {
-    let remerasFilt = listaProd.filter((el)=> el.categoria == "Remera")
-    console.log("Estas son las remeras disponibles:")
-    remerasFilt.forEach((el) => console.log(`${el.id}- ${el.nombre}`))
-    opcion()
-    console.log(resultado)
-    switch (resultado) {
-        case 4:
-            console.log(`${remerasFilt[0].nombre} sale ${remerasFilt[0].precio} y su talle es ${remerasFilt[0].talle}`)
-            console.log("¿Desea comprarla?")
-            console.log("1- Si")
-            console.log("2- No")
-            opcion()
-            if (resultado == 1) {
-                carrito.push(remerasFilt[0].precio)
-                console.log("Gracias por su compra! Vuelva pronto.")
-            }else if(resultado == 2){
-                console.log("No hay problema, la proxima sera.")
-            }
-            break;
-        case 5:
-            console.log(`${remerasFilt[1].nombre} sale ${remerasFilt[1].precio} y su talle es ${remerasFilt[1].talle}`)
-            console.log("¿Desea comprarla?")
-            console.log("1- Si")
-            console.log("2- No")
-            opcion()
-            if (resultado == 1) {
-                carrito.push(remerasFilt[1].precio)
-                console.log("Gracias por su compra! Vuelva pronto.")
-            }else if(resultado == 2){
-                console.log("No hay problema, la proxima sera.")
-            }
-            break;
-        case 6:
-            console.log(`${remerasFilt[2].nombre} sale ${remerasFilt[2].precio} y su talle es ${remerasFilt[2].talle}`)
-            console.log("¿Desea comprarla?")
-            console.log("1- Si")
-            console.log("2- No")
-            opcion()
-            if (resultado == 1) {
-                carrito.push(remerasFilt[2].precio)
-                console.log("Gracias por su compra! Vuelva pronto.")
-            }else if(resultado == 2){
-                console.log("No hay problema, la proxima sera.")
-            }
-            break;      
-        default:
-            console.log("Error, elija una de las opciones disponibles.")
-            remeras()
-            break;
-    }
+let botones = document.getElementsByClassName('boton')
+let carrito = document.getElementById('carritoSection')
+
+let carritoGuardado = []
+if (localStorage.getItem('carrito')) {
+  carritoGuardado = JSON.parse(localStorage.getItem('carrito'))
 }
 
-function buzos() {
-    let buzosFilt = listaProd.filter((el)=> el.categoria == "Buzo")
-    console.log("Estos son los buzos disponibles:")
-    buzosFilt.forEach((el) => console.log(`${el.id}- ${el.nombre}`))
-    opcion()
-    console.log(resultado)
-    switch (resultado) {
-        case 1:
-            console.log(`${buzosFilt[0].nombre} sale ${buzosFilt[0].precio} y su talle es ${buzosFilt[0].talle}`)
-            console.log("¿Desea comprarlo?")
-            console.log("1- Si")
-            console.log("2- No")
-            opcion()
-            if (resultado == 1) {
-                carrito.push(buzosFilt[0].precio)
-                console.log("Gracias por su compra! Vuelva pronto.")
-            }else if(resultado == 2){
-                console.log("No hay problema, la proxima sera.")
-            }
-            break;
-        case 2:
-            console.log(`${buzosFilt[1].nombre} sale ${buzosFilt[1].precio} y su talle es ${buzosFilt[1].talle}`)
-            console.log("¿Desea comprarlo?")
-            console.log("1- Si")
-            console.log("2- No")
-            opcion()
-            if (resultado == 1) {
-                carrito.push(buzosFilt[1].precio)
-                console.log("Gracias por su compra! Vuelva pronto.")
-            }else if(resultado == 2){
-                console.log("No hay problema, la proxima sera.")
-            }
-            break;
-        case 3:
-            console.log(`${buzosFilt[2].nombre} sale ${buzosFilt[2].precio} y su talle es ${buzosFilt[2].talle}`)
-            console.log("¿Desea comprarlo?")
-            console.log("1- Si")
-            console.log("2- No")
-            opcion()
-            if (resultado == 1) {
-                carrito.push(buzosFilt[2].precio)
-                console.log("Gracias por su compra! Vuelva pronto.")
-            }else if(resultado == 2){
-                console.log("No hay problema, la proxima sera.")
-            }
-            break;     
-        default:
-            console.log("Error, elija una de las opciones disponibles.")
-            buzos()
-            break;
+renderizarCarrito()
+//funcion botones
+for (const boton of botones) {
+  boton.onclick = (e) => {
+    let productoBuscado = productos.find(producto => producto.id == e.target.id)
+
+    let posicionProductoEnCarrito = carritoGuardado.findIndex(producto => producto.id == productoBuscado.id)
+
+    if (posicionProductoEnCarrito != -1) {
+      carritoGuardado[posicionProductoEnCarrito].unidades++ 
+      carritoGuardado[posicionProductoEnCarrito].subtotal = carritoGuardado[posicionProductoEnCarrito].precioUnidad * carritoGuardado[posicionProductoEnCarrito].unidades
+    } else {
+      carritoGuardado.push({ id: productoBuscado.id, nombre: productoBuscado.nombre, precioUnidad: productoBuscado.precio, unidades: 1, subtotal: productoBuscado.precio })
     }
+
+    localStorage.setItem('carrito', JSON.stringify(carritoGuardado))
+    renderizarCarrito()
+  }
 }
-do {
-    console.log("Que desea mirar")
-    console.log("1- Remeras")
-    console.log("2- Buzos")
-    console.log("3- Terminar compra")
-    console.log("0- Finalizar programa")
-    opcion()
-    switch (resultado) {
-        case 1:
-            remeras()
-            break;
-        case 2:
-            buzos()
-            break;
-        case 3:
-            let precioFinal = carrito.reduce((acumulador, elemento) => acumulador + elemento, 0)
-            console.log(`El total de su compra es: ${precioFinal}`)
-            break;
-        case 0:
-            console.log("Programa finalizado.")
-            break;
-        default:
-            console.log("Error, elija una de las opciones disponibles.")
-            break;
-    }
 
-} while (resultado !== 0);
+function vaciarLosCarritos() {
+  localStorage.clear()
+  carritoGuardado = []
+  let total = 0
+  carrito.innerHTML = `
+   <article class="itemCarrito">
+     <p class="titleItem">nombre</p>
+     <p class="titleItem">precioUnidad</p>
+     <p class="titleItem">unidades</p>
+     <p class="titleItem">subtotal</p>
+   </article>
+   <div class="totalCarrito">
+     <h3 class="titleTotalCarrito">total: ${total}</h3>
+   </div>
+   <div class="finalizarComprarContainer">
+     <button id="finalizarCompra">Finalizar Compra</button>
+   </div>  
+  `
+  console.log("sigue andando")
+}
+function botonEliminar() {
+  let btnEliminar = document.getElementById("finalizarCompra")
+  btnEliminar.addEventListener('click', vaciarLosCarritos)
+}
 
+function renderizarCarrito() {
+  carrito.innerHTML = `
+    <article class="itemCarrito">
+      <p class="titleItem">nombre</p>
+      <p class="titleItem">precioUnidad</p>
+      <p class="titleItem">unidades</p>
+      <p class="titleItem">subtotal</p>
+    </article>
+  `
+  let total = 0
+  for (const item of carritoGuardado) {
+    total += item.subtotal
+    carrito.innerHTML += `
+      <article class="itemCarrito">
+        <p class="itemItem">${item.nombre}</p>
+        <p class="itemItem">${item.precioUnidad}</p>
+        <p class="itemItem">${item.unidades}</p>
+        <p class="itemItem">${item.subtotal}</p>
+      </article>
+    `
+  }
+  carrito.innerHTML += `
+    <div class="totalCarrito">
+      <h3 class="titleTotalCarrito">total: ${total}</h3>
+    </div>
+    <div class="finalizarComprarContainer">
+      <button id="finalizarCompra">Finalizar Compra</button>
+    </div>  
+  `
+  botonEliminar()
+}

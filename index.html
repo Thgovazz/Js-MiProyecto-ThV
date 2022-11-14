@@ -4,11 +4,47 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&family=Roboto+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="estilos.css">
     <title>Document</title>
 </head>
 <body>
-    
-
-    <script src="./archivosJs/etapa1.js"></script>
+    <header>
+        <nav id="navBar">
+            <div id="containerTitleIndex"><a href="index.html" class="titleIndex">Zaun Market</a></div>
+            <ul id="ulNavBar">
+                <li><a href="#carritoSection" rel="noopener noreferrer"><img src="./icons/cart-regular-24.png" alt="carrito de compra" id="carritoIcon"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <div id="hero">
+        <div id="heroHero">
+            <h1 class="heroTitle">Zaun</h1>
+            <p class="heroText">Se paciente y tu ola llegará.</p>
+            <img src="./multimedia/heroImg.jpg" alt="Un chico surfeando" class="imgHero">
+        </div>
+        
+    </div>
+    <div id="containerTitleTienda">
+        <h2 class="titleTienda">Tienda</h2>
+        <div class="containerBusquedaProduc">
+        <input type="search" placeholder="buscar producto" id="busquedaProduc">
+        </div>
+    </div>
+    <section id="productosContainer">
+    </section>
+    <section id="carritoSection">
+    </section>
+    <footer>
+        <div class="copyTextIndex">
+            <p class="textCopyIndex">&copy;ThiagoVazquez</p>
+        </div>
+    </footer>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="archivosJs/etapa1.js"></script>
 </body>
 </html>
