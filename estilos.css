@@ -25,6 +25,9 @@ a{
 #carritoSection{
     grid-area: carrito;
 }
+#comentarios{
+    grid-area: comentarios;
+}
 footer{
     grid-area: footer;
 }
@@ -41,9 +44,10 @@ body{
     "titleTienda"
     "productos"
     "carrito"
+    "comentarios"
     "footer"
     ;
-    background-color: rgb(4 4 4/ 0.9);
+    background-color: rgba(245, 245, 245, 0.9);
 }
 /*estilos*/
 header{
@@ -67,6 +71,7 @@ header{
 #carritoIcon{
     width: 25px;
     height: 26px;
+    margin-right: 0.24em;
 }
 #hero{
     height: 20em;
@@ -116,6 +121,8 @@ header{
     text-align: center;
 }
 .titleTienda{
+    font-family: 'Roboto',sans-serif;
+    font-weight: 400;
     background-color: rgb(0 0 0);
     color: rgb(245 245 245);
     padding: 0.12em;
@@ -143,32 +150,41 @@ header{
     background-color: rgb(245 245 245);
     border: 0.06em solid black;
 }
-#btnLupa{
-    width: 2em;
-    height: 2em;
-    background-color: rgb(0, 0, 0);
-}
-#lupaImg{
-    width: max-content;
-}
-#bodyCarrito{
-    background-color: blueviolet;
-}
 #carritoSection{
     background-color: rgb(245, 245, 245);
-    margin: 0.12em;
-    border: 0.24em solid rgb(0, 0, 0);
-    display: grid;
+    width: 100%;
+    height: 100vh;
+    margin-top: 2.3em;
+    border: none;
+    position:absolute;
+    z-index: 4;
 }
 .itemCarrito{
     display: flex;
     justify-content: space-between;
     margin: 0.12em;
 }
-
+.opinionesCard{
+    border: 0.125em solid rgb(0, 0, 0);
+    margin: 0.25em;
+    height: 8em;
+}
+.opinionesTitle{
+    display: flex;
+    justify-content: center;
+    font-size: 1.5em;
+}
+.opinionH2{
+    padding: 0.18em;
+    font-size: 1.3em;
+    color: #db0a40;
+}
+.esconder{
+    display: none;
+}
 @media screen and (min-width: 1200px){
     #hero{
-        height: 38em;
+        height: 39em;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -210,11 +226,21 @@ header{
         width: 100%;
         height: 100%;
     }
+    #containerBusquedaProduc{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #busquedaProduc{
+        padding: 0.31em;
+        margin-left: 5.5em;
+    }
     #productosContainer{ 
         display: grid;
         justify-items: center;
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 1fr 1fr;
+        row-gap: 0.62em;
     }
     .producto{
         display: grid;
@@ -222,6 +248,14 @@ header{
         justify-content: center;
         align-items: center;
         overflow: hidden;
+        border: none;
+        border-radius: 0.87em;
+        box-shadow: 0.12em 0.31em 3px 3px rgba(0, 0, 0, 0.3);
+    }
+    .producto:hover{
+        transform: translateY(-2%);
+        box-shadow: 0.12em 0.31em 3px 3px rgba(0, 0, 0, 0.6);
+        transition: all 400ms ease;
     }
     .imgProducTien{
         margin: 0.5em;
@@ -238,5 +272,59 @@ header{
     }
     .boton{
         margin: 0 3.5em;
+        padding: 0.31em;
+        position: relative;
+        border: none;
+        background-color: rgba(0, 0, 0, 0.104);
+        cursor: pointer;
+    }
+    .boton::before{
+        content: "";
+        display: block;
+        position: absolute;
+        width: 0%;
+        height: 0.18em;
+        background-color:#db0a40;
+        left: 0;
+        bottom: 0;
+    }
+    .boton:hover::before{
+        width: 100%;
+        transition: width 600ms ease;
+    }
+    #comentarios{
+        margin-top: 0.50em;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: max-content 1fr;
+        grid-template-areas: 
+        "titleComentario titleComentario titleComentario"
+        "julia juana lautaro";
+        row-gap: 0.31em;
+    }
+    .opinionesTitle{
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: 2em;
+        font-weight: 400;
+        color: rgb(58, 51, 51);
+        grid-area: titleComentario;
+    }
+    .Julia{
+        grid-area: julia;
+    }
+    .Juana{
+        grid-area: juana;
+    }
+    .Lautaro{
+        grid-area: lautaro;
+    }
+    .Julia, .Juana, .Lautaro{
+        margin: 0.31em;
+        text-align: center;
+        height: 20vh;
+        border: 0.06em solid rgb(245, 245, 245);
+        border-radius: 0.90em;
+        box-shadow: 0.06em 0.09em 0.06em rgb(0, 0, 0, .3);
+        background-color: rgb(218, 216, 220);
     }
 }
